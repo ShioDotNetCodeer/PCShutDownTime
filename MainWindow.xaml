@@ -1,0 +1,78 @@
+﻿<Window x:Class="PCShutDownTime.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PCShutDownTime"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="定时关机" Height="260" Width="400">
+    <Window.Resources>
+        <Style x:Key="BaseTextBlock" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+        </Style>
+        <Style x:Key="BaseTextBox" TargetType="TextBox">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+        </Style>
+        <Style x:Key="BaseSlider" TargetType="Slider">
+            <Setter Property="Value" Value="0"/>
+            <Setter Property="SmallChange" Value="1"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Margin" Value="10 0 10 0"/>
+            <Setter Property="IsSnapToTickEnabled" Value="True"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical" Grid.Row="0" >
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BaseTextBlock}" Text="时:"/>
+                <TextBox Text="{Binding ElementName=Slider_hour,Path=Value}" Style="{StaticResource BaseTextBox}"
+                         Name="textBox_hour"/>
+            </StackPanel>
+            <Slider 
+               Style="{StaticResource BaseSlider}"
+                   Maximum="23" 
+                Name="Slider_hour" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BaseTextBlock}" Text="分:"/>
+                <TextBox Text="{Binding ElementName=Slider_min,Path=Value}" Style="{StaticResource BaseTextBox}"  Name="textBox_min"/>
+            </StackPanel>
+            <Slider Maximum="59"  Minimum="0"
+            Style="{StaticResource BaseSlider}"
+                Name="Slider_min" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BaseTextBlock}" Text="秒:"/>
+                <TextBox  Text="{Binding ElementName=Slider_sec,Path=Value}" Style="{StaticResource BaseTextBox}" Name="textBox_sec"/>
+            </StackPanel>
+            <Slider  Maximum="59"  
+                     Style="{StaticResource BaseSlider}"
+                Name="Slider_sec" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BaseTextBlock}" Text="当前时间:"/>
+                <TextBlock Name="OpenTaskTime" Style="{StaticResource BaseTextBlock}"  Text="请开始任务" />
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource BaseTextBlock}" Text="结束时间:"/>
+                <TextBlock Name="EstimateTime" Style="{StaticResource BaseTextBlock}"  Text="未知" />
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal"  Grid.Row="1" HorizontalAlignment="Center">
+            <Button Name="Opentask" Click="Opentask_Click">开始任务</Button>
+            <Button Name="FinishTask" Click="FinishTask_Click" IsEnabled="False">结束结束</Button>
+        </StackPanel>
+    </Grid>
+    
+</Window>
